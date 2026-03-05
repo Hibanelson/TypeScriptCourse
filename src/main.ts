@@ -16,18 +16,18 @@
 //     age: 25
 // }  
 //create function datatype
-function add(a: number, b: number): number {
-    return a + b;
-}
-console.log(add(5, 3)); // Output: 8
+// function add(a: number, b: number): number {
+//     return a + b;
+// }
+// console.log(add(5, 3)); // Output: 8
 
-// create function to check admin permission
-function checkAdmin(user: { name: string; isAdmin?: boolean }): string {
-    if (user.isAdmin) {
-        return `${user.name} has admin permissions.`;
-    } else {
-        return `${user.name} does not have admin permissions.`;
-    }  
-}
-console.log(checkAdmin({ name: "John", isAdmin: true })); // Output: John has admin permissions.
-console.log(checkAdmin({ name: "Alice" })); // Output: Alice does not have admin permissions.
+// // create function to check admin permission
+// function checkAdmin(user: { name: string; isAdmin?: boolean }): string {
+//     if (user.isAdmin) {
+//         return `${user.name} has admin permissions.`;
+//     } else {
+//         return `${user.name} does not have admin permissions.`;
+//     }  
+// }
+// console.log(checkAdmin({ name: "John", isAdmin: true })); // Output: John has admin permissions.
+// console.log(checkAdmin({ name: "Alice" })); // Output: Alice does not have admin permissions.
