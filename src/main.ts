@@ -127,11 +127,17 @@
 // };
 // console.log(getOrderStatus(order1)); // Output: Order 101 is in progress with items: Laptop, Mouse.
 // console.log(getOrderStatus(order2)); // Output: Order 102 has been delivered with items: Keyboard, Monitor.
+
+// use enum to make userRole (string) | use Generics in add function
+enum UserRole {
+  Admin = "Admin",
+  User = "User"
+}
 // Create interface of User with userName, userAge, userRole use extends to add isAdmin
 interface User {
     userName: string,
     userAge: number,
-    userRole: "Admin" | "User"
+    userRole: UserRole
 }
 interface User {
     isAdmin: () => boolean
@@ -140,7 +146,7 @@ interface User {
 const user: User = {
   userName: "Ali",
   userAge: 30,
-  userRole: "Admin",
+  userRole: UserRole.Admin,
 
   isAdmin() {
     return this.userRole === "Admin"
@@ -150,7 +156,7 @@ const user: User = {
 const user2: User = {
   userName: "Ahmed",
   userAge: 31,
-  userRole: "User",
+  userRole: UserRole.User,
 
   isAdmin() {
     return this.userRole === "Admin"
@@ -158,3 +164,7 @@ const user2: User = {
 }
 console.log(user,user.isAdmin())
 console.log(user2,user2.isAdmin())
+function add<T extends number>(a: T, b: T): number {
+  return a + b
+}
+console.log(add(1,2))
