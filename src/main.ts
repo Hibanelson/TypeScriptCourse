@@ -129,42 +129,140 @@
 // console.log(getOrderStatus(order2)); // Output: Order 102 has been delivered with items: Keyboard, Monitor.
 
 // use enum to make userRole (string) | use Generics in add function
-enum UserRole {
-  Admin = "Admin",
-  User = "User"
-}
-// Create interface of User with userName, userAge, userRole use extends to add isAdmin
-interface User {
-    userName: string,
-    userAge: number,
-    userRole: UserRole
-}
-interface User {
-    isAdmin: () => boolean
-}
-// Example for an Admin User
-const user: User = {
-  userName: "Ali",
-  userAge: 30,
-  userRole: UserRole.Admin,
+// enum UserRole {
+//   Admin = "Admin",
+//   User = "User"
+// }
+// // Create interface of User with userName, userAge, userRole use extends to add isAdmin
+// interface UserAccount {
+//     userName: string,
+//     userAge: number,
+//     userRole: UserRole
+// }
+// interface UserAccount {
+//     isAdmin: () => boolean
+// }
+// // Example for an Admin User
+// const user: UserAccount = {
+//   userName: "Ali",
+//   userAge: 30,
+//   userRole: UserRole.Admin,
 
-  isAdmin() {
-    return this.userRole === "Admin"
+//   isAdmin() {
+//     return this.userRole === "Admin"
+//   }
+// }
+// // Example for a normal User
+// const user2: UserAccount = {
+//   userName: "Ahmed",
+//   userAge: 31,
+//   userRole: UserRole.User,
+
+//   isAdmin() {
+//     return this.userRole === "Admin"
+//   }
+// }
+// console.log(user,user.isAdmin())
+// console.log(user2,user2.isAdmin())
+// function add<T extends number>(a: T, b: T): number {
+//   return a + b
+// }
+// console.log(add(1,2))
+
+// interface User {
+//   id: number;
+//   name: string;
+//   email: string;
+//   age: number;
+//   password: string;
+// }
+
+// // 1) Update version: all fields are optional
+// type UserUpdate = Partial<User>;
+
+// // 2) Public profile: remove id و password
+// type UserProfile = Omit<User, "id" | "password">;
+
+// // 3) Contact card: show name and email only
+// type UserContact = Pick<User, "name" | "email">;
+
+// // 4) Required user: all fields are mandatory
+// type RequiredUser = Required<User>;
+
+// Define an interface named User with properties: id (number), username (string), and email (string).
+interface User {
+  id: number;
+  username: string;
+  email: string;
+}
+/* Create a Generic function called getPropetry.
+The function should take two parameters: the object and the key we want to access.
+Use extends keyof to restrict the key parameter so it only accepts valid keys from the object. */
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+const user1: User = {
+  id: 1,
+  username: "john_doe",
+  email: "john.doe@example.com"
+};
+console.log(getProperty(user1, "id")); // Output: 1
+console.log(getProperty(user1, "username")); // Output: john_doe
+console.log(getProperty(user1, "email")); // Output: john.doe@example.com   
+//=======================================================================
+//Define an interface named Car with: brand (string), year (number), and isElectric (boolean).
+interface Car {
+  brand: string;
+  year: number;
+  isElectric: boolean;
+}
+/*Create a Generic function called setUpdate.
+The function must accept: the target object, the key to update, and the new value.*/
+function setUpdate<T, K extends keyof T>(obj: T, key: K, value: T[K]): void {
+  obj[key] = value;
+}
+const car1: Car = {
+  brand: "Tesla",
+  year: 2020,
+  isElectric: true
+};
+setUpdate(car1, "year", 2021);
+console.log(car1.year);
+//=======================================================================
+//Define an enum named OrderStatus with values: Pending, Shipped, Delivered, and Cancelled
+enum OrderStatus {
+  Pending = "Pending",
+  Shipped = "Shipped",
+  Delivered = "Delivered",
+  Cancelled = "Cancelled"
+}
+// Create an interface named Order that includes id (number) and status (of type OrderStatus).
+interface Order {
+  id: number;
+  status: OrderStatus;
+}
+//Write a function checkStatus that takes an Order and returns a friendly message based on its current status
+function checkStatus(order: Order): string {
+  switch (order.status) {
+    case OrderStatus.Pending:
+      return `Order ${order.id} is pending.`;
+    case OrderStatus.Shipped:
+      return `Order ${order.id} has been shipped.`;
+    case OrderStatus.Delivered:
+      return `Order ${order.id} has been delivered.`;
+    case OrderStatus.Cancelled:
+      return `Order ${order.id} has been cancelled.`;
+    default:
+      return `Order ${order.id} has an unknown status.`;
   }
 }
-// Example for a normal User
-const user2: User = {
-  userName: "Ahmed",
-  userAge: 31,
-  userRole: UserRole.User,
-
-  isAdmin() {
-    return this.userRole === "Admin"
-  }
-}
-console.log(user,user.isAdmin())
-console.log(user2,user2.isAdmin())
-function add<T extends number>(a: T, b: T): number {
-  return a + b
-}
-console.log(add(1,2))
+const order1: Order = {
+  id: 101,
+  status: OrderStatus.Pending
+};
+const order2: Order = {
+  id: 102,
+    status: OrderStatus.Shipped
+};
+console.log(checkStatus(order1)); // Output: Order 101 is pending.
+console.log(checkStatus(order2)); // Output: Order 102 has been shipped.
