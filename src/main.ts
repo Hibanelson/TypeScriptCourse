@@ -127,3 +127,34 @@
 // };
 // console.log(getOrderStatus(order1)); // Output: Order 101 is in progress with items: Laptop, Mouse.
 // console.log(getOrderStatus(order2)); // Output: Order 102 has been delivered with items: Keyboard, Monitor.
+// Create interface of User with userName, userAge, userRole use extends to add isAdmin
+interface User {
+    userName: string,
+    userAge: number,
+    userRole: "Admin" | "User"
+}
+interface User {
+    isAdmin: () => boolean
+}
+// Example for an Admin User
+const user: User = {
+  userName: "Ali",
+  userAge: 30,
+  userRole: "Admin",
+
+  isAdmin() {
+    return this.userRole === "Admin"
+  }
+}
+// Example for a normal User
+const user2: User = {
+  userName: "Ahmed",
+  userAge: 31,
+  userRole: "User",
+
+  isAdmin() {
+    return this.userRole === "Admin"
+  }
+}
+console.log(user,user.isAdmin())
+console.log(user2,user2.isAdmin())
